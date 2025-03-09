@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:weather_app/mobile/base/base_bloc.dart';
@@ -6,8 +7,9 @@ import 'package:weather_app/mobile/modules/home/event/home_event.dart';
 import 'package:weather_app/mobile/modules/home/model/home_model.dart';
 import 'package:weather_app/mobile/modules/home/repository/home_repository.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:weather_app/mobile/utility/loading.dart';
 
-class HomeBloc extends BaseBloc {
+class WeatherForecastBloc extends BaseBloc {
   // Stream controller
   final _weatherForecastDataController = BehaviorSubject<DataViewController>();
 
@@ -15,10 +17,6 @@ class HomeBloc extends BaseBloc {
       _weatherForecastDataController.stream;
   Sink<DataViewController> get weatherForecastDataSink =>
       _weatherForecastDataController.sink;
-
-  HomeBloc() {
-    getCurrentTemperature();
-  }
 
   @override
   void dispathEvent(BaseEvent event) {
@@ -46,7 +44,8 @@ class HomeBloc extends BaseBloc {
   }
 
   getCurrentTemperature() async {
-    // try {
+    try {
+      LoadingDialog.showLoadingDialog();
       final position = await getCurrentPosition();
       List<Placemark> placemarks = await getCityName(
         position.latitude,
@@ -56,7 +55,7 @@ class HomeBloc extends BaseBloc {
         WeatherModelRequest(
           lat: position.latitude,
           long: position.longitude,
-          appid: "14ef67ad897384289657e9e4174a18e9",
+          appid: dotenv.env['key_weather_api'], // API Key
         ),
       );
       if (response != null) {
@@ -69,9 +68,11 @@ class HomeBloc extends BaseBloc {
           ),
         );
       }
-    // } catch (e) {
-    //   _weatherForecastDataController.sink.addError(e.toString());
-    // }
+      LoadingDialog.hideLoadingDialog();
+    } catch (e) {
+      LoadingDialog.hideLoadingDialog();
+      _weatherForecastDataController.sink.addError(e.toString());
+    }
   }
 
   Future<List<Placemark>> getCityName(double lat, double lon) async {

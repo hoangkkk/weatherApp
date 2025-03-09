@@ -50,6 +50,7 @@ class DataViewController {
       temperatureForecasts:
           temperatureForecasts
               .map((e) => TemperatureModel.fromJson(e))
+              .take(4)
               .toList(),
     );
   }

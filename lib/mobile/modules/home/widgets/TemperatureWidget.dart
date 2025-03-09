@@ -18,7 +18,7 @@ class TemperatureWidget extends StatelessWidget {
           Text(
             day,
             style: TextStyle(
-              color: wPrimaryText,
+              color: wPrimaryTextColor,
               fontSize: 16.0,
               fontFamily: 'Roboto-Regular',
               height: 1.2,
@@ -27,7 +27,7 @@ class TemperatureWidget extends StatelessWidget {
           Text(
             "$temp C",
             style: TextStyle(
-              color: wPrimaryText,
+              color: wPrimaryTextColor,
               fontSize: 16.0,
               fontFamily: 'Roboto-Regular',
               height: 1.2,

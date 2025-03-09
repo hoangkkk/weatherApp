@@ -8,7 +8,7 @@ import 'package:weather_app/mobile/constants/constant.dart';
 
 ThemeData theme() {
   return ThemeData(
-    scaffoldBackgroundColor: wPrimaryBgScreen,
+    scaffoldBackgroundColor: wPrimaryBgScreenColor,
     appBarTheme: appBarTheme(),
     inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -20,16 +20,16 @@ ThemeData theme() {
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-    color: wPrimaryBgScreen,
+    color: wPrimaryBgScreenColor,
     elevation: 0,
     iconTheme: const IconThemeData(color: Colors.white),
     toolbarTextStyle:
         const TextTheme(
-          headlineSmall: TextStyle(color: wPrimaryText, fontSize: 16),
+          headlineSmall: TextStyle(color: wPrimaryTextColor, fontSize: 16),
         ).bodyLarge,
     titleTextStyle:
         const TextTheme(
-          headlineSmall: TextStyle(color: wPrimaryBgScreen, fontSize: 16),
+          headlineSmall: TextStyle(color: wPrimaryBgScreenColor, fontSize: 16),
         ).bodyLarge,
   );
 }
@@ -49,16 +49,16 @@ InputDecorationTheme inputDecorationTheme() {
 
   /// Use UnderlineInputBorder
   UnderlineInputBorder underlineInputBorder = UnderlineInputBorder(
-    borderSide: BorderSide(color: wPrimaryText, width: width),
+    borderSide: BorderSide(color: wPrimaryTextColor, width: width),
   );
   UnderlineInputBorder underlineInputBorderEnabled = UnderlineInputBorder(
-    borderSide: BorderSide(color: wPrimaryText.withOpacity(0.7), width: width),
+    borderSide: BorderSide(color: wPrimaryTextColor.withOpacity(0.7), width: width),
   );
   return InputDecorationTheme(
     labelStyle: const TextStyle(color: Colors.grey),
     prefixStyle: const TextStyle(color: Colors.red),
-    suffixStyle: const TextStyle(color: wPrimaryText),
-    fillColor: wPrimaryText,
+    suffixStyle: const TextStyle(color: wPrimaryTextColor),
+    fillColor: wPrimaryTextColor,
     border: underlineInputBorder,
     focusedBorder: underlineInputBorder,
     enabledBorder: underlineInputBorderEnabled,

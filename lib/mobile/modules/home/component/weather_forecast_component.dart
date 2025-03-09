@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:weather_app/mobile/constants/constant.dart';
+import 'package:weather_app/mobile/modules/home/model/home_model.dart';
+import 'package:weather_app/mobile/modules/home/widgets/TemperatureWidget.dart';
+
+class WeatherForecastComponent extends StatelessWidget {
+  final DataViewController? data;
+  const WeatherForecastComponent({super.key, required this.data});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Current Weather
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '${data?.currentTemperature?.temp ?? 0}°',
+                style: TextStyle(
+                  color: wPrimaryTextColor,
+                  fontSize: 96.0,
+                  fontFamily: 'Roboto-black',
+                  height: 1.2,
+                ),
+              ),
+              Text(
+                data?.cityName ?? 'Unknown',
+                style: TextStyle(
+                  fontSize: 36.0,
+                  fontFamily: 'Roboto-Thin',
+                  color: Color(0xFF556799),
+                  height: 1.4,
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // Forecast 4 days
+        Expanded(
+          child: ListView.builder(
+            padding: EdgeInsets.all(16.0),
+            itemCount: data?.temperatureForecasts?.length ?? 0,
+            itemBuilder: (context, index) {
+              final forecast = data?.temperatureForecasts?[index];
+              return TemperatureWidget(
+                day: forecast!.dt.toString(),
+                temp: forecast.temp.toString(),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:weather_app/mobile/config/global_key.dart' show GlobalVariable;
+import 'package:weather_app/mobile/config/size_config.dart';
 import 'package:weather_app/mobile/config/theme.dart';
+import 'package:weather_app/mobile/constants/constant.dart';
 import 'package:weather_app/mobile/languages/custom_localization.dart';
 import 'package:weather_app/mobile/modules/home/home_screen.dart';
 import 'package:weather_app/mobile/routes/route_generate.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -27,7 +31,6 @@ class _MyAppState extends State<MyApp> {
   Locale? _locale;
   String language = '';
   void setLocale(Locale locale) {
-    print(locale);
     setState(() {
       _locale = locale;
     });
@@ -40,7 +43,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Future<void> didChangeDependencies() async {
-    /// TEST
     super.didChangeDependencies();
   }
 
@@ -73,41 +75,19 @@ class _MyAppState extends State<MyApp> {
         theme: theme(),
         locale: _locale,
         // ignore: prefer_const_literals_to_create_immutables
-        // localizationsDelegates: [
-        //   CustomLocalizations.delegate,
-        // ],
-        // supportedLocales: const [
-        //   Locale('vi', ''),
-        //   Locale('en', ''),
-        // ],
-        // color: eLightColor,
+        localizationsDelegates: [
+          CustomLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('vi', ''),
+          Locale('en', ''),
+        ],
+        color: wPrimaryBgScreenColor,
         home: LayoutBuilder(
           builder: (context, constraints) {
-            // double size = MediaQuery.of(context).size.width * 0.7;
-            // Config splash screen
-            // if (_locale == null) {
-            // return Container(
-            //   height: size,
-            //   width: size,
-            //   // color: eLightColor,
-            //   decoration: BoxDecoration(
-            //     color: eLightColor,
-            //     image: DecorationImage(
-            //       image: AssetImage(AppImage.imageChezdental),
-            //     ),
-            //   ),
-            // child: SizedBox(
-            //   width: size,
-            //   height: size,
-            //   child: Image(
-            //     image: AssetImage(AppImage.imageChezdental),
-            //   ),
-            // ),
-            // );
-            // }
             return OrientationBuilder(
               builder: (context, orientation) {
-                // SizeConfig().init(constraints, orientation);
+                SizeConfig().init(constraints, orientation);
                 return const HomeScreen();
               },
             );
@@ -117,8 +97,11 @@ class _MyAppState extends State<MyApp> {
         routes: routes,
         builder: (context, child) {
           return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
-              child: child ?? Container());
+            data: MediaQuery.of(
+              context,
+            ).copyWith(textScaler: TextScaler.linear(1.0)),
+            child: child ?? Container(),
+          );
         },
       ),
     );
