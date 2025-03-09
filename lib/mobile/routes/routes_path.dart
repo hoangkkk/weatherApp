@@ -1,0 +1,2 @@
+/// Home
+const homeScreen = "/home";
