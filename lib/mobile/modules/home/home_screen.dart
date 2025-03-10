@@ -8,7 +8,8 @@ import 'package:weather_app/mobile/modules/home/event/home_event.dart';
 import 'package:weather_app/mobile/utility/fade_up_animation.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.bloc});
+  final WeatherForecastBloc? bloc;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -18,6 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
   var bloc = WeatherForecastBloc();
   @override
   void initState() {
+    if (widget.bloc != null) {
+      bloc = widget.bloc!;
+    }
     bloc.event.add(GetTemperatureEvent());
     super.initState();
   }
@@ -52,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                     : (snapshot.hasData
                         ? EFadeUpAnimation(
-                          child: WeatherForecastComponent(data: snapshot.data),
+                          child: WeatherForecastComponent(data: snapshot.data!),
                         )
                         : Center(
                           child: SizedBox(

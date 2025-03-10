@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather_app/mobile/modules/home/model/home_model.dart';
 import 'package:weather_app/mobile/modules/home/repository/home_repository.dart';
-import 'mocks.mocks.dart'; // Generated mock file
+import 'mocks.mocks.dart';
 
 class WeatherService {
   final HomeRepository repository;
@@ -18,7 +18,7 @@ class WeatherService {
       WeatherModelRequest(
         lat: lat,
         long: lon,
-        appid: dotenv.env['key_weather_api'], // API Key
+        appid: dotenv.env['key_weather_api'],
       ),
     );
     return response;
@@ -68,9 +68,6 @@ void main() {
       ).thenAnswer((_) async => mockResponse);
 
       // // Act: Call the function with sample lat/lon
-      // final result = await mockHomeRepository.getSummaryReport(
-      //   WeatherModelRequest(lat: 51.5074, long: -0.1278, appid: 'test_api_key'),
-      // );
       final result = await weatherService.getTemperatureForecast(
         51.5074,
         -0.1278,

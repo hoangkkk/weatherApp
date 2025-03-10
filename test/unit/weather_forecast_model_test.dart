@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:weather_app/mobile/modules/home/model/home_model.dart';
 
 void main() {
+  // Test DataViewController Model 
   test('Weather model parses JSON correctly', () {
     final json = {
       "current": {
@@ -109,7 +110,7 @@ void main() {
             },
         }
     ]
-    }; // 10°C
+    };
     final weather = DataViewController.fromJson(json);
     expect(weather.currentTemperature?.temp, closeTo(10, 1));
     expect(weather.currentTemperature?.dt, "Monday");

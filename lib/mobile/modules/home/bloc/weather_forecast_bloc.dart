@@ -24,6 +24,10 @@ class WeatherForecastBloc extends BaseBloc {
     }
   }
 
+  weatherForecaseSinkError(Exception error) {
+    _weatherForecastDataController.sink.addError(error);
+  }
+
   Future<Position> getCurrentPosition() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) throw Exception('Location services are disabled.');

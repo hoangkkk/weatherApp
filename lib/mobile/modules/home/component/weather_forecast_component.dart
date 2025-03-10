@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/mobile/constants/constant.dart';
 import 'package:weather_app/mobile/modules/home/model/home_model.dart';
-import 'package:weather_app/mobile/modules/home/widgets/TemperatureWidget.dart';
+import 'package:weather_app/mobile/modules/home/widgets/temperature_widget.dart';
 
 class WeatherForecastComponent extends StatelessWidget {
-  final DataViewController? data;
+  final DataViewController data;
   const WeatherForecastComponent({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class WeatherForecastComponent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                '${data?.currentTemperature?.temp ?? 0}°',
+                '${data.currentTemperature?.temp ?? 0}°',
                 style: TextStyle(
                   color: wPrimaryTextColor,
                   fontSize: 96.0,
@@ -26,7 +26,7 @@ class WeatherForecastComponent extends StatelessWidget {
                 ),
               ),
               Text(
-                data?.cityName ?? 'Unknown',
+                data.cityName ?? 'Unknown',
                 style: TextStyle(
                   fontSize: 36.0,
                   fontFamily: 'Roboto-Thin',
@@ -42,9 +42,9 @@ class WeatherForecastComponent extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             padding: EdgeInsets.all(16.0),
-            itemCount: data?.temperatureForecasts?.length ?? 0,
+            itemCount: data.temperatureForecasts?.length ?? 0,
             itemBuilder: (context, index) {
-              final forecast = data?.temperatureForecasts?[index];
+              final forecast = data.temperatureForecasts?[index];
               return TemperatureWidget(
                 day: forecast!.dt.toString(),
                 temp: forecast.temp.toString(),
