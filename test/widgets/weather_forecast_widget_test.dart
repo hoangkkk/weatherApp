@@ -6,7 +6,6 @@ import 'package:weather_app/mobile/modules/home/home_screen.dart';
 import 'package:weather_app/mobile/modules/home/component/weather_forecast_component.dart';
 import 'package:weather_app/mobile/modules/home/component/error_component.dart';
 import 'package:weather_app/mobile/modules/home/model/home_model.dart';
-import 'package:weather_app/mobile/utility/fade_up_animation.dart';
 
 void main() {
   // Test group for HomeScreen

@@ -1,23 +1,34 @@
 # weather_app
 
-A new Flutter project.
+A Flutter application that displays current temperature and a 4-day forecast using OpenWeatherMap API.
 
-## Getting Started
+## Technical Approach
 
-This project is a starting point for a Flutter application.
+- **Architecture**: 
+    + MVC (Model-View-Controller): Organized into `mobile/modules`, `modules/Bloc`, etc., 
+    + BLoC: Stream-based, Separates UI from business logic for scalability.
 
-A few resources to get you started if this is your first Flutter project:
+- **Libraries**:
+  - `dio`: For API requests
+  - `geolocator`: For location services
+  - `flutter_dotenv`: This is useful when you need to store sensitive information like API keys, URLs, or other configurations that you don't want to make public in your source code. 
+  - `rxdart`: 
+    + Manage and manipulate streams of data (like weather updates in your app).
+    + Combine, transform, or filter data before it reaches the UI.
+    + Write cleaner, more maintainable asynchronous code.
+  - `intl`: For date formatting
+- **Testing**: 
+  - Unit tests with Mockito, build_runner to create mock objects for test. see more: https://docs.flutter.dev/cookbook/testing/unit/mocking
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Setup
+1. Get an API key from [OpenWeatherMap](https://openweathermap.org/)
+3. Run `flutter pub get`
+4. Run `flutter run`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-Debug and build app:
- - flutter build apk --split-per-abi (apk)
- - flutter build appbundle ( android )
-Debug and build web:
- - flutter run -d chrome ( web )
- - https://docs.flutter.dev/deployment/web
+## Git History
+- Commit first app
+- Config file env, error handling, loading page
+- Commit implement simple animations and create simple unit test ( model, bloc )
+- Commit write widget test
+- Feature/tests: Added tests
+- see more: https://github.com/hoangkkk/weatherApp

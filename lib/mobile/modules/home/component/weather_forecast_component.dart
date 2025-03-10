@@ -11,30 +11,46 @@ class WeatherForecastComponent extends StatelessWidget {
     return Column(
       children: [
         // Current Weather
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '${data.currentTemperature?.temp ?? 0}°',
-                style: TextStyle(
-                  color: wPrimaryTextColor,
-                  fontSize: 96.0,
-                  fontFamily: 'Roboto-black',
-                  height: 1.2,
+        Container(
+          padding: EdgeInsets.only(bottom: 62),
+          decoration: BoxDecoration(
+            color: wPrimaryBgScreenColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2), // Shadow color
+                offset: Offset(
+                  0,
+                  2,
                 ),
-              ),
-              Text(
-                data.cityName ?? 'Unknown',
-                style: TextStyle(
-                  fontSize: 36.0,
-                  fontFamily: 'Roboto-Thin',
-                  color: Color(0xFF556799),
-                  height: 1.4,
-                ),
+                blurRadius: 10,
               ),
             ],
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '${data.currentTemperature?.temp ?? 0}°',
+                  style: TextStyle(
+                    color: wPrimaryTextColor,
+                    fontSize: 96.0,
+                    fontFamily: 'Roboto-black',
+                    height: 1.2,
+                  ),
+                ),
+                Text(
+                  data.cityName ?? 'Unknown',
+                  style: TextStyle(
+                    fontSize: 36.0,
+                    fontFamily: 'Roboto-Thin',
+                    color: Color(0xFF556799),
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
 
