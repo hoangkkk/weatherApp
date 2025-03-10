@@ -30,5 +30,5 @@ A Flutter application that displays current temperature and a 4-day forecast usi
 - Config file env, error handling, loading page
 - Commit implement simple animations and create simple unit test ( model, bloc )
 - Commit write widget test
-- Feature/tests: Added tests
+- Commit README file
 - see more: https://github.com/hoangkkk/weatherApp
