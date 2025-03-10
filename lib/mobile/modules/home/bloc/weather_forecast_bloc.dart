@@ -7,15 +7,14 @@ import 'package:weather_app/mobile/modules/home/event/home_event.dart';
 import 'package:weather_app/mobile/modules/home/model/home_model.dart';
 import 'package:weather_app/mobile/modules/home/repository/home_repository.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:weather_app/mobile/utility/loading.dart';
 
 class WeatherForecastBloc extends BaseBloc {
   // Stream controller
-  final _weatherForecastDataController = BehaviorSubject<DataViewController>();
+  final _weatherForecastDataController = BehaviorSubject<DataViewController?>();
 
-  Stream<DataViewController> get weatherForecastDataStream =>
+  Stream<DataViewController?> get weatherForecastDataStream =>
       _weatherForecastDataController.stream;
-  Sink<DataViewController> get weatherForecastDataSink =>
+  Sink<DataViewController?> get weatherForecastDataSink =>
       _weatherForecastDataController.sink;
 
   @override
@@ -43,35 +42,35 @@ class WeatherForecastBloc extends BaseBloc {
     return position;
   }
 
+  getTemperatureForecast(double lat, double lon) async {
+    final response = await HomeRepository().getSummaryReport(
+      WeatherModelRequest(
+        lat: lat,
+        long: lon,
+        appid: dotenv.env['key_weather_api'], // API Key
+      ),
+    );
+    return response;
+  }
+
   getCurrentTemperature() async {
     try {
-      LoadingDialog.showLoadingDialog();
+      DataViewController data = DataViewController();
       final position = await getCurrentPosition();
       List<Placemark> placemarks = await getCityName(
         position.latitude,
         position.longitude,
       );
-      final response = await HomeRepository().getSummaryReport(
-        WeatherModelRequest(
-          lat: position.latitude,
-          long: position.longitude,
-          appid: dotenv.env['key_weather_api'], // API Key
-        ),
+      final response = await getTemperatureForecast(position.latitude, position.longitude);
+      data = DataViewController(
+        cityName: placemarks.first.subAdministrativeArea,
+        currentTemperature: response.currentTemperature,
+        temperatureForecasts: response.temperatureForecasts,
       );
-      if (response != null) {
-        // Map data to DataViewController
-        weatherForecastDataSink.add(
-          DataViewController(
-            cityName: placemarks[0].name,
-            currentTemperature: response.currentTemperature,
-            temperatureForecasts: response.temperatureForecasts,
-          ),
-        );
-      }
-      LoadingDialog.hideLoadingDialog();
+      // Map data to DataViewController
+      weatherForecastDataSink.add(data);
     } catch (e) {
-      LoadingDialog.hideLoadingDialog();
-      _weatherForecastDataController.sink.addError(e.toString());
+      _weatherForecastDataController.sink.addError(e);
     }
   }
 

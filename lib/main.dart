@@ -4,7 +4,6 @@ import 'package:weather_app/mobile/config/global_key.dart' show GlobalVariable;
 import 'package:weather_app/mobile/config/size_config.dart';
 import 'package:weather_app/mobile/config/theme.dart';
 import 'package:weather_app/mobile/constants/constant.dart';
-import 'package:weather_app/mobile/languages/custom_localization.dart';
 import 'package:weather_app/mobile/modules/home/home_screen.dart';
 import 'package:weather_app/mobile/routes/route_generate.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -75,13 +74,13 @@ class _MyAppState extends State<MyApp> {
         theme: theme(),
         locale: _locale,
         // ignore: prefer_const_literals_to_create_immutables
-        localizationsDelegates: [
-          CustomLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('vi', ''),
-          Locale('en', ''),
-        ],
+        // localizationsDelegates: [
+        //   CustomLocalizations.delegate,
+        // ],
+        // supportedLocales: const [
+        //   Locale('vi', ''),
+        //   Locale('en', ''),
+        // ],
         color: wPrimaryBgScreenColor,
         home: LayoutBuilder(
           builder: (context, constraints) {

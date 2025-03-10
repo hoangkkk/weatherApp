@@ -5,6 +5,7 @@ import 'package:weather_app/mobile/modules/home/bloc/weather_forecast_bloc.dart'
 import 'package:weather_app/mobile/modules/home/component/error_component.dart';
 import 'package:weather_app/mobile/modules/home/component/weather_forecast_component.dart';
 import 'package:weather_app/mobile/modules/home/event/home_event.dart';
+import 'package:weather_app/mobile/utility/fade_up_animation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,13 +45,27 @@ class _HomeScreenState extends State<HomeScreen> {
             child:
                 snapshot.hasError
                     ? ErrorComponent(
-                      update: (value) {
+                      retry: (value) {
+                        bloc.weatherForecastDataSink.add(null);
                         bloc.event.add(GetTemperatureEvent());
                       },
                     )
                     : (snapshot.hasData
-                        ? WeatherForecastComponent(data: snapshot.data)
-                        : SizedBox()),
+                        ? EFadeUpAnimation(
+                          child: WeatherForecastComponent(data: snapshot.data),
+                        )
+                        : Center(
+                          child: SizedBox(
+                            height: 96,
+                            width: 96,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 5,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                wPrimaryLoadingColor,
+                              ),
+                            ),
+                          ),
+                        )),
           ),
         );
       },
